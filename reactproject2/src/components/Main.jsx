@@ -1,4 +1,5 @@
 import React from 'react';
+import './app.css';
 
 class Main extends React.Component {
   constructor(props) {
@@ -30,6 +31,12 @@ class Main extends React.Component {
       response.json().then((body) => {
         this.setState({ text1: body.text,  summary1: body.summary, mapping:body.mapping, fname:body.fname });
         console.log(this.state);
+        document.getElementById("text").innerHTML=body.text;
+        document.getElementById("summary").innerHTML=body.summary;
+        document.getElementsByClassName("heading")[0].style.visibility="visible";
+        document.getElementsByClassName("container")[0].style.visibility="visible";
+        document.getElementsByClassName("heading")[0].style.display="flex";
+        document.getElementsByClassName("container")[0].style.display="flex";
       });
     });
   }
@@ -59,7 +66,9 @@ class Main extends React.Component {
   //then(res => res.text()).then(text => console.log(text));
   render() {
     return (
+      
     <div>
+    {/* style={{backgroundColor:"#8CC152"}}> */}
       <form onSubmit={this.handleUploadImage}>
         <div>
           <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
@@ -71,10 +80,32 @@ class Main extends React.Component {
         <div>
           <button>Upload</button>
         </div>
-        <p>{this.state.text1}</p>
-        <hr></hr>
-        <p>{this.state.summary1}</p>
+
+        <div className="heading">
+          <div className="left-col">
+            <h1>Text</h1>
+          </div>
+          
+          <div className="center-col">
+            <h1>Summary</h1>
+          </div>
+        </div>
+        
+        <div className="container">
+          <div className="left-col" id="text">
+            Left col
+          </div>
+          
+          <div className="center-col" id="summary">
+            <span>List</span>
+            <ul>
+              Hello World
+            </ul>
+          </div>
+        </div>
+
       </form>
+      <br></br>
       <button onClick={this.createPPT}>Create PPT</button>
       <a href={"http://localhost:5000/return-files?pptpath="+ this.state.ppt_path} id="download_link" download> </a>
     </div>

@@ -1,0 +1,35 @@
+.heading{
+    display: flex;
+    flex-direction: row;
+    visibility: hidden;
+    display: none;
+    
+  }
+  .container {
+    display: flex;
+    flex-direction: row;
+    visibility: hidden;
+    display: none;
+    
+  }
+  
+  .left-col {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #404040;
+    overflow-y: scroll;
+    
+  }
+  
+  .center-col {
+    flex: 1;
+    background: #aaa;
+    overflow-y: scroll;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  

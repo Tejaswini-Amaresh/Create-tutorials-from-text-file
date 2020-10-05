@@ -1,9 +1,12 @@
 import React from 'react';
 import Main from './components/Main';
+import './app.css';
 
 const App = () => (
   <div>
-    <h1>File Upload</h1>
+    <br></br>
+    <h1>Tutorial Generation</h1>
+    <br></br><hr></hr>
     <Main />
   </div>
 );
