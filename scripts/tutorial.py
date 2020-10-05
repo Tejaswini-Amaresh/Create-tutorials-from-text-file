@@ -30,10 +30,11 @@ def pptgen():
     if upload_file and allowed_file(upload_file.filename):
         upload_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         fname=filename.split(".")[0]+"_summary.pptx"
+        vname=filename.split(".")[0]+"_summary.mp4"
         filename=app.config['UPLOAD_FOLDER']+"/"+filename
         text=readfile(filename)
         sg.processing(text,fname)
-        return render_template("hello.html",context={"filename":fname})
+        return render_template("hello.html",context={"filename":fname,"Videoname":vname})
     else:
         return render_template("wrong_response.html")
 

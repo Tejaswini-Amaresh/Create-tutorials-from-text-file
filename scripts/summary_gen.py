@@ -4,9 +4,11 @@ from nltk.tokenize import word_tokenize, sent_tokenize
 
 import nltk
 
-import re
+import re,os
 
-def processing(text,filename):
+import create_video as cv
+
+def processing(text):
 
 
   '''CREATING FREQUENCY TABLE'''
@@ -74,27 +76,32 @@ def processing(text,filename):
 
   sentence_count = 0
   summary = ''
+  global mapping
   mapping={}
+  start=0
   for i in range(len(sentences)):
       sentence=sentences[i]
       if sentence[:10] in sentenceValue and sentenceValue[sentence[:10]] >= (average):
               summary += " " + sentence
               sentence_count += 1
               mapping[sentence_count-1]=i
+              #start=i+1
   
   print(mapping)
 
-  #summary
+  print(summary)
+  return summary,mapping
 
 
+def pptgen(text,summary,mapping,filename):
+
+  language = 'en'
+  sentences = text.split('.')
+
+  for i in range(len(sentences)):
+    sentences[i]=sentences[i]+"."
 
   from gtts import gTTS 
-  mytext = summary
-  language = 'en'
-  
-  myobj = gTTS(text=text, lang=language, slow=False) 
-
-  myobj.save("voiceover.mp3")
 
   summary = summary.split('.')
   summary.pop()
@@ -108,18 +115,15 @@ def processing(text,filename):
 
   prs = Presentation()
   title_slide_layout = prs.slide_layouts[1]
-  '''slide = prs.slides.add_slide(title_slide_layout)
-  title = slide.shapes.title
-  subtitle = slide.placeholders[1]
-  left = top = width = height = util.Inches(1.0)
-  shapes = slide.shapes
-  body_shape = shapes.placeholders[1]
-  title_shape = shapes.title'''
+  slide_to_voice={}
   #Used to add bullet points
   #tf = body_shape.text_frame
   for i in range(0,len(summary),3):
     slide = prs.slides.add_slide(title_slide_layout)
+    print(slide.element)
     title = slide.shapes.title
+    if i==0:
+      title.text="Abstract"
     subtitle = slide.placeholders[1]
     left = top = width = height = util.Inches(1.0)
     shapes = slide.shapes
@@ -131,13 +135,21 @@ def processing(text,filename):
       p = tf.add_paragraph()
       p.text = summary[j]
       p.level=0
-    voice_text=' '.join(sentences[mapping[i]:mapping[x-1]+1])
+    voice_text=' '.join(sentences[mapping[str(i)]:mapping[str(x-1)]+1])
     myobj = gTTS(text=voice_text, lang=language, slow=False) 
-    myobj.save("voiceover.mp3")
-    movie = slide.shapes.add_movie("voiceover.mp3", 
+    myobj.save("voiceover_"+str(i)+".mp3")
+    slide_to_voice[i]="voiceover_"+str(i)+".mp3"
+    movie = slide.shapes.add_movie("voiceover_"+str(i)+".mp3", 
                     left , top , width , height, 
                               poster_frame_image=None, 
                               mime_type='video/unknown')
+  ppt_path='static/downloads/'+filename
+  prs.save(ppt_path)
+  name=filename.split(".")[0]
+  pdf_name=name+".pdf"
+  video_name=name+".mp4"
+  #cv.ppt_presenter(filename,pdf_name,video_name,slide_to_voice)
+  #cv.ppt_presenter('D:\College\Capstone project\Create-tutorials-from-text-file\scripts\static\downloads\hi_summary.pptx','D:\College\Capstone project\Create-tutorials-from-text-file\scripts\static\downloads\hi_summary.pdf','D:\College\Capstone project\Create-tutorials-from-text-file\scripts\static\downloads\hi_summary.mp4',slide_to_voice)
+  return os.path.abspath(ppt_path)
 
-  prs.save('static/downloads/'+filename)
 
