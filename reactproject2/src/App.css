@@ -1,6 +1,6 @@
 body, html {
   height: 100%;
-  background-image:"url(https://techrev.me/wp-content/uploads/2019/09/cropped-how-to-make-tutorial-videos-1600x768.jpg)";
+  /* background-image:"url(https://techrev.me/wp-content/uploads/2019/09/cropped-how-to-make-tutorial-videos-1600x768.jpg)"; */
 }
 
 .container1{
@@ -10,5 +10,10 @@ body, html {
   background-repeat: no-repeat;
   background-size: cover; 
   /* background-color: #008080;  */
+}
+
+.heading1{
+  margin-left: 170px;
+  color: white;
 }
 

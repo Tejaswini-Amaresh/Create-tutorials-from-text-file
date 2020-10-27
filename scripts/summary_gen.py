@@ -1,9 +1,9 @@
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize, sent_tokenize
-
+from pptx.enum.text import MSO_ANCHOR, MSO_AUTO_SIZE
 import nltk
-
+from pptx.util import Pt
 import re,os
 
 import create_video as cv
@@ -95,7 +95,7 @@ def processing(text):
 
 def pptgen(text,summary,mapping,filename):
 
-  language = 'en'
+  language = 'hi'
   sentences = text.split('.')
 
   for i in range(len(sentences)):
@@ -107,7 +107,14 @@ def pptgen(text,summary,mapping,filename):
   summary.pop()
 
   for i in range(len(summary)):
-    summary[i]=summary[i]+"."
+    if summary[i][1]=="\n":
+      summary[i]=summary[i][2:]+"."
+    else:
+      summary[i]=summary[i][1:]+"."
+
+  print("xxxxxxxxxxxx")
+  print(summary)
+  print("xxxxxxxxxxxx")
 
   #summary
 
@@ -129,12 +136,20 @@ def pptgen(text,summary,mapping,filename):
     shapes = slide.shapes
     body_shape = shapes.placeholders[1]
     tf = body_shape.text_frame
+    # tf.fit_text()# = MSO_AUTO_SIZE.SHAPE_TO_FIT_TEXT
     title_shape = shapes.title
     x=min(i+3,len(summary))
     for j in range(i,x):
       p = tf.add_paragraph()
       p.text = summary[j]
       p.level=0
+    tf.fit_text(max_size=25)
+    print("^^^^^^^^^^^^^^^^")
+    print(tf.paragraphs[0].font.size)
+    print("^^^^^^^^^^^^^^^^")
+    # for paragraph in tf.paragraphs:
+    #   for run in paragraph.runs:
+    #       run.font.size = Pt(9)
     voice_text=' '.join(sentences[mapping[str(i)]:mapping[str(x-1)]+1])
     myobj = gTTS(text=voice_text, lang=language, slow=False) 
     myobj.save("voiceover_"+str(i)+".mp3")
@@ -148,8 +163,12 @@ def pptgen(text,summary,mapping,filename):
   name=filename.split(".")[0]
   pdf_name=name+".pdf"
   video_name=name+".mp4"
+  ppt_path=os.path.abspath(ppt_path)
+  pdf_path=ppt_path[:-4]+"pdf"
+  print("**********    ",pdf_path,"      *********")
   #cv.ppt_presenter(filename,pdf_name,video_name,slide_to_voice)
   #cv.ppt_presenter('D:\College\Capstone project\Create-tutorials-from-text-file\scripts\static\downloads\hi_summary.pptx','D:\College\Capstone project\Create-tutorials-from-text-file\scripts\static\downloads\hi_summary.pdf','D:\College\Capstone project\Create-tutorials-from-text-file\scripts\static\downloads\hi_summary.mp4',slide_to_voice)
-  return os.path.abspath(ppt_path)
+  cv.PPTtoPDF(ppt_path,pdf_path)
+  return {'ppt_path':ppt_path,'pdf_path':pdf_path}
 
 

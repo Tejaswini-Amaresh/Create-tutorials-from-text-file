@@ -5,6 +5,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background: linear-gradient(to bottom, #ffffff 0%, #669999 102%); */
+  background-position: center;
+  background-size: cover; 
+  min-height: auto;
+  /* overflow-y: hidden; */
+  overflow-x: hidden;
 }
 
 code {
@@ -12,11 +18,20 @@ code {
     monospace;
 }
 .container2{
-  background-image:url(https://img.freepik.com/free-vector/abstract-technology-background-science-connecting-technology_42705-96.jpg?size=626&ext=jpg);
-  height: 100vh;
+  /* background-image:url(https://img.freepik.com/free-vector/abstract-technology-background-science-connecting-technology_42705-96.jpg?size=626&ext=jpg); */
+  /* background-color: #ade6d8; */
+  /* background: linear-gradient(to bottom, #ffffff 0%, #669999 102%); */
+  /* background: linear-gradient(to bottom, #cc99ff 0%, #ffffff 102%); */
+  /* background: linear-gradient(to bottom, #55ACEE 0%, #292F33 102%); */
+  /* height: 100vh; */
+  /* background: linear-gradient(to bottom, #ffffff 0%, #669999 102%); */
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover; 
+  background-size: cover;  
   color: white;
+  overflow: auto;
   /* background-color: #008080;  */
+}
+.container3{
+  color: black;
 }
