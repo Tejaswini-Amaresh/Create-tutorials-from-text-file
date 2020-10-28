@@ -9,6 +9,7 @@ from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 from flask_jwt_extended import (create_access_token)
 from flask_sqlalchemy import SQLAlchemy
+import qa
 
 UPLOAD_FOLDER = 'static/uploads'
 app = Flask(__name__)
@@ -129,8 +130,10 @@ def login():
 def assessments():
     print(request.get_json())
     text=request.get_json()['data']
-    questions=ques.sentensify(text)
-    return {'data':questions}
+    qa_module=qa.question_ans_module(text)
+    x={'bool':qa_module.bool_question(),'mcq':qa_module.mcq_question()}
+    print(x)
+    return x
 
 @app.after_request
 def add_header(r):

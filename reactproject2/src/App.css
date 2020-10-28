@@ -3,14 +3,15 @@ body, html {
   /* background-image:"url(https://techrev.me/wp-content/uploads/2019/09/cropped-how-to-make-tutorial-videos-1600x768.jpg)"; */
 }
 
-.container1{
-  /* background-image:"url(https://techrev.me/wp-content/uploads/2019/09/cropped-how-to-make-tutorial-videos-1600x768.jpg)"; */
+/* .container1{
+   background-image:"url(https://techrev.me/wp-content/uploads/2019/09/cropped-how-to-make-tutorial-videos-1600x768.jpg)"; 
   height: 50vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover; 
-  /* background-color: #008080;  */
-}
+  
+  /* background-color: #008080;  
+} */
 
 .heading1{
   margin-left: 170px;

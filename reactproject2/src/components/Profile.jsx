@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import jwt_decode from 'jwt-decode'
-
+import  Sidebar  from './sidebar'
 class Profile extends Component {
   constructor() {
     super()
@@ -23,6 +23,14 @@ class Profile extends Component {
   render() {
     return (
       <div className="container">
+        {/* <sidebar width={300} height={"100vh"}>
+          <h2>Nav Item</h2>
+          <h2>Nav Item</h2>
+          <h2>Nav Item</h2>
+          <h2>Nav Item</h2>
+          <h2>Nav Item</h2>
+        </sidebar> */}
+        {/* <Sidebar pageWrapId={'page-wrap'} outerContainerId={'outer-container'} /> */}
         <div className="jumbotron mt-5">
           <div className="col-sm-8 mx-auto">
             <h1 className="text-body">PROFILE</h1>
