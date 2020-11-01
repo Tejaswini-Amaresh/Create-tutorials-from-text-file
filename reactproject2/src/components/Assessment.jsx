@@ -40,40 +40,49 @@ class Assessment extends Component {
   onSubmit(e) {
     e.preventDefault()
     // var formElements = 
-    console.log(this.state.questions.length);
-    for(var i=0;i<Object.keys(this.state.questions).length;i++){
-      this.state.questions[i].push(document.forms['qa'].elements[i.toString()].value);
+    console.log(this.state.mcq.length);
+    var s=0;
+    for(var i=0;i<Object.keys(this.state.mcq).length;i++){
+      // var ans=document.getElementsByName(i.toString())
+      // if(ans.checked)
+      this.state.mcq[i]["user_answer"]=document.querySelector("input[name=\'"+i.toString()+"\']:checked").value;
+      // ans.value;
+      if(this.state.mcq[i]["user_answer"]===this.state.mcq[i]["answer"])
+        s+=1;
     }
 
-    console.log(this.state.questions);
-    
+    console.log(this.state.mcq);
+    console.log(s);
+    document.getElementById("score").innerHTML="Your score is : "+s+"/"+Object.keys(this.state.mcq).length;
   }
 
   render() {
     //   this.gen_questions()
     return (
     // <form noValidate onSubmit={this.onSubmit}>
-    <form noValidate onSubmit={this.onSubmit} name="qa">
     <div>
+      <form noValidate onSubmit={this.onSubmit} name="qa">
       {
         Object.keys(this.state.mcq).map((key, index) => ( 
             <div className="jumbotron mt-5" key={index}>
            <div className="col-sm-8 mx-auto">
-          <h5 className="text-body">{index+1}) {this.state.mcq[key]["question_statement"]}</h5> 
+          <h3 className="text-body">{index+1}) {this.state.mcq[key]["question_statement"]}</h3> 
 
           {
           this.state.mcq[key]["options"].map((option,index1) => (
-            <div style={{color: 'black', textAlign: 'left'}}>
-              <input type="radio" name="question" id={index1} value={index1}/><label for={index1}>  {option}</label>
+            <div style={{color: 'black', textAlign: 'left', fontSize:'2vh' }}>
+              <input type="radio" name={index} value={option}/>  {option}
             </div>)
           )}
           </div>
           </div>
         ))
       }
-    </div>
-    <input type="submit"/>
+    <input type="submit" className="btn-secondary btn-lg"/>
     </form>
+    <hr></hr>
+    <div id="score" style={{color: 'white', textAlign: 'center', fontSize:'4vh' }}></div>
+    </div>
     )
   }
 }
